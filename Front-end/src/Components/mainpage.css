@@ -1,0 +1,49 @@
+.header {
+  font-family: "Creepster", cursive;
+  color: green;
+  font-size: 74px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 74px; /* Add this to push the content below the header */
+}
+
+.reader {
+  color: white;
+  font-size: 36px;
+  text-align: center;
+}
+
+.input-box {
+  border: 2px slid whtie;
+  background-color: transparent;
+  color: white;
+  font-size: 36px;
+  caret-color: green;
+  text-shadow: 0px 0px 0px white;
+  -webkit-text-fill-color: transparent;
+  animation: blink-caret 0s step-end infinite;
+  outline: none; /* Add this line to remove the blue border */
+  width: 60%;
+  font-size: 24px;
+}
+
+/* Define the blinking cursor animation */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: green;
+  }
+}
