@@ -35,6 +35,18 @@
   outline: none; /* Add this line to remove the blue border */
   width: 60%;
   font-size: 24px;
+  overflow-y: hidden;
+  resize: none;
+  height: auto;
+  min-height: 50px; /* minimum height of the input box */
+}
+
+.input-box:focus {
+  outline: none;
+}
+
+.input-box:not(:focus) {
+  height: 20px; /* default height of the input box */
 }
 
 /* Define the blinking cursor animation */

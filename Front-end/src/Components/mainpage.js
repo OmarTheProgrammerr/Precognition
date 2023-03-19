@@ -2,12 +2,35 @@ import React, { useState } from "react";
 import "./mainpage.css";
 
 function Mainpage() {
-  const [inputHeight, setInputHeight] = useState("auto");
+  const [inputHeight, setInputHeight] = useState("20px");
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" || e.target.scrollHeight > e.target.clientHeight) {
-      setInputHeight(`${e.target.clientHeight * 2}px`);
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      generateText(e.target.value);
+      e.target.value = "";
+    } else if (e.key === "Enter" && e.metaKey) {
+      e.preventDefault();
+      e.target.value += "\n";
     }
+  };
+
+  const handleInput = (e) => {
+    setInputHeight("auto");
+    e.target.style.height = "auto";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
+
+  const generateText = async (prompt) => {
+    const response = await fetch("/api/predict", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    });
+    const data = await response.json();
+    console.log(data.message);
   };
 
   const text = "I'ma Predict You!";
@@ -27,11 +50,11 @@ function Mainpage() {
           Write me a scenario and I will predict what would happen next!
         </p>
         <br />
-        <input
-          type="text"
+        <textarea
           className="input-box"
-          style={{ height: inputHeight }}
           onKeyDown={handleKeyDown}
+          onInput={handleInput}
+          style={{ height: inputHeight }}
         />
         <br />
       </div>
