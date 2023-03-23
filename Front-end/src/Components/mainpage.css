@@ -1,11 +1,17 @@
 .header {
   font-family: "Creepster", cursive;
   color: green;
-  font-size: 74px;
+  font-size: 48px;
   position: fixed;
   top: 0;
   width: 100%;
   text-align: center;
+}
+
+@media screen and (max-width: 574px) {
+  .header {
+    font-size: 36px;
+  }
 }
 
 .content {
@@ -14,47 +20,96 @@
   justify-content: center;
   align-items: center;
 
-  margin-top: 74px; /* Add this to push the content below the header */
+  margin-top: 74px;
+}
+
+@media screen and (max-width: 574px) {
+  .content {
+    margin-top: 36px;
+  }
 }
 
 .reader {
   color: white;
-  font-size: 36px;
+  font-size: 24px;
   text-align: center;
 }
 
+@media screen and (max-width: 574px) {
+  .reader {
+    font-size: 18px;
+  }
+}
+
 .input-box {
-  border: 2px slid whtie;
-  background-color: transparent;
+  border: 2px solid green;
+  background-color: grey;
   color: white;
-  font-size: 36px;
+  font-size: 24px;
   caret-color: green;
   text-shadow: 0px 0px 0px white;
   -webkit-text-fill-color: transparent;
-  animation: blink-caret 0s step-end infinite;
+  animation: caret-blink 1s infinite;
   width: 60%;
   font-size: 16px;
   overflow-y: hidden;
   resize: none;
   height: auto;
-  min-height: 50px; /* minimum height of the input box */
+  min-height: 50px;
 }
 
 .input-box:focus {
-  outline: none;
+  border: 2px solid gray;
 }
 
-.input-box:not(:focus) {
-  height: 20px; /* default height of the input box */
-}
-
-/* Define the blinking cursor animation */
-@keyframes blink-caret {
+@keyframes caret-blink {
   from,
   to {
     border-color: transparent;
   }
   50% {
-    border-color: green;
+    border-color: black;
   }
+}
+
+@media screen and (max-width: 574px) {
+  .input-box {
+    font-size: 18px;
+  }
+}
+
+.content p {
+  color: white;
+  margin-right: 30%;
+  margin-left: 30%;
+}
+
+@media screen and (max-width: 574px) {
+  .content p {
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+}
+.predict {
+  font-size: 72px;
+  margin-top: 10px;
+  animation: predict 1s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes predict {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.predict:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in-out;
 }

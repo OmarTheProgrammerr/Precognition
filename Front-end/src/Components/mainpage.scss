@@ -1,0 +1,124 @@
+.high-five {
+  --hands-x: 4px;
+  --hands-o: 0;
+  --success-clip: 0%;
+  --success-o: 0;
+  --success-text-o: 0;
+  margin-left: 40%;
+  margin-right: 40%;
+  font-family: "Poppins", Arial;
+  font-size: 16px;
+  font-weight: 600;
+  appearance: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: #ff7576;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  width: 124px;
+  text-align: center;
+  position: relative;
+  line-height: 20px;
+  box-shadow: 0px 4px 16px rgba(255, 146, 149, 0.1),
+    0px 1px 2px rgba(255, 146, 149, 0.1);
+  border-radius: 7px;
+  transform: translateZ(0);
+  transition: transform 0.15s, background-color 0.15s;
+  @media (max-width: 574px) {
+    margin-left: 40%;
+  }
+
+  &:active {
+    transform: scale(0.98, 0.97) translateZ(0);
+  }
+
+  .hands {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: var(--hands-o);
+    pointer-events: none;
+    svg {
+      display: block;
+      width: 32px;
+      height: 36px;
+      fill: #fff;
+      stroke-width: 1.5;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: fill 0.15s;
+
+      ellipse {
+        stroke: none;
+      }
+
+      &.left {
+        position: relative;
+        z-index: 1;
+        transform: translateX(var(--hands-x));
+      }
+
+      &.right {
+        transform: translateX(calc(var(--hands-x) * -1)) scaleX(-1);
+      }
+    }
+  }
+
+  .success {
+    background-color: #ff7576;
+    color: #fff;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    padding: inherit;
+    border-radius: inherit;
+    overflow: hidden;
+    clip-path: circle(var(--success-clip));
+    opacity: var(--success-o);
+    transition: background-color 0.15s;
+
+    span {
+      opacity: var(--success-text-o);
+    }
+  }
+
+  &:hover {
+    background-color: #fffcfc;
+
+    .hands {
+      svg {
+        fill: #fffcfc;
+      }
+    }
+
+    .success {
+      background-color: #fe6c6d;
+    }
+  }
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  min-height: 100vh;
+  font-family: "Poppins", Arial;
+  .twitter {
+    position: fixed;
+    display: block;
+    right: 12px;
+    bottom: 12px;
+    svg {
+      width: 50px;
+      height: 50px;
+      fill: #1da1f2;
+    }
+  }
+}
