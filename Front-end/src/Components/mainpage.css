@@ -5,6 +5,8 @@
   position: fixed;
   top: 0;
   width: 100%;
+  margin-bottom: 0px;
+  position: relative;
   text-align: center;
 }
 
@@ -19,8 +21,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+}
 
-  margin-top: 74px;
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 @media screen and (max-width: 574px) {
@@ -112,4 +122,21 @@
 .predict:hover {
   transform: scale(1.2);
   transition: transform 0.2s ease-in-out;
+}
+
+.icon-container {
+  color: aqua;
+  margin-top: 20px;
+  position: relative;
+  left: 50%; /* Add this property */
+  transform: translateX(-50%); /* Modify this property */
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+  padding: 20px 0;
+  color: #888;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./mainpage.css";
 import "./mainpage.scss";
+import { GiEvilEyes } from "react-icons/gi";
 
 function Mainpage() {
   const [inputHeight, setInputHeight] = useState("50px");
@@ -35,13 +36,16 @@ function Mainpage() {
 
   const generateText = async (prompt) => {
     console.log("we are in the generateText function! ");
-    const response = await fetch("http://127.0.0.1:5000/api/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt }),
-    });
+    const response = await fetch(
+      "https://precognition-back-end.herokuapp.com/api/predict",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      }
+    );
     console.log("This is the response in the front-end!");
     const data = await response.json();
     console.log(data.message);
@@ -73,14 +77,20 @@ function Mainpage() {
         <br />
         <textarea
           className="input-box"
+          placeholder="Type somthinglike: What would happen if ......"
           onKeyDown={handleKeyDown}
           onInput={handleInput}
           onKeyUp={handleKeyUp}
           style={{ height: inputHeight }}
         />
         <br />
+        <div className="icon-wrapper">
+          <div className="icon-container">
+            <GiEvilEyes size={72} />
+          </div>
+        </div>
       </div>
-
+      <div className="copyright">&copy; 2023</div>
       <a class="twitter" target="_top" href="https://twitter.com/omar13858982">
         <svg
           xmlns="http://www.w3.org/2000/svg"
