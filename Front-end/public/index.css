@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Creepster&display=swap");
+
+body.hidden {
+  visibility: hidden;
+}
+
+body.fonts-loaded .hidden {
+  visibility: visible;
+}

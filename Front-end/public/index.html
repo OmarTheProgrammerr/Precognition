@@ -2,13 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Creepster&display=swap"
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css?family=Creepster&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <script>
+      if (
+        !document.querySelector(
+          "link[rel='stylesheet'][href='https://fonts.googleapis.com/css?family=Creepster&display=swap']"
+        )
+      ) {
+        var ss = document.createElement("link");
+        ss.rel = "stylesheet";
+        ss.href =
+          "https://fonts.googleapis.com/css?family=Creepster&display=swap";
+        document.getElementsByTagName("head")[0].appendChild(ss);
+      }
+    </script>
   </head>
   <meta charset="UTF-8" />
-  <body>
+  <body class="hidden">
     <div id="root">
       <!-- <script
         language="javascript"
@@ -28,4 +47,10 @@
       ></script> -->
     </div>
   </body>
+  <script>
+    document.fonts.load("1em Creepster").then(function () {
+      document.body.classList.remove("hidden");
+      document.body.classList.add("fonts-loaded");
+    });
+  </script>
 </html>

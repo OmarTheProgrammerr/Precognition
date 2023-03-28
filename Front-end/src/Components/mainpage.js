@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./mainpage.css";
 import "./mainpage.scss";
 import { GiEvilEyes } from "react-icons/gi";
@@ -27,6 +27,22 @@ function Mainpage() {
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://precognition-back-end.herokuapp.com/fetch-data"
+      );
+      const data = await response.json();
+      console.log("Fetched data from the database:", data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleKeyUp = (e) => {
     if (e.key === "Backspace" && e.target.scrollTop === 0) {
       setInputHeight("50px");
@@ -34,8 +50,25 @@ function Mainpage() {
     }
   };
 
+  const storeData = async (userInput, generatedResponse) => {
+    try {
+      await fetch("https://precognition-back-end.herokuapp.com/store", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userInput,
+          generatedResponse,
+          timestamp: new Date(),
+        }),
+      });
+    } catch (error) {
+      console.error("Error storing data:", error);
+    }
+  };
   const generateText = async (prompt) => {
-    console.log("we are in the generateText function! ");
+    console.log("we are in the generateText function!");
     const response = await fetch(
       "https://precognition-back-end.herokuapp.com/api/predict",
       {
@@ -49,6 +82,10 @@ function Mainpage() {
     console.log("This is the response in the front-end!");
     const data = await response.json();
     console.log(data.message);
+
+    // Call storeData() function here
+    storeData(prompt, data.message);
+
     // Update the UI with the generated text
     const generatedTextElement = document.createElement("p");
     const contentElement = document.querySelector(".content");
@@ -91,7 +128,7 @@ function Mainpage() {
         </div>
       </div>
       <div className="copyright">&copy; 2023</div>
-      <a class="twitter" target="_top" href="https://twitter.com/omar13858982">
+      <a class="twitter" target="_top" href="https://twitter.com/omar_fsm02">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="72"

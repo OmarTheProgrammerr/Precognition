@@ -68,6 +68,17 @@
   min-height: 50px;
 }
 
+@import url("https://fonts.googleapis.com/css?family=Creepster&display=swap");
+
+.predict {
+  font-family: "Creepster", sans-serif;
+}
+
+/* Add the 'Creepster' font to the .predict class */
+.predict {
+  font-family: "Creepster", sans-serif;
+}
+
 .input-box:focus {
   border: 2px solid gray;
 }
