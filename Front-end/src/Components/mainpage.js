@@ -5,6 +5,7 @@ import { GiEvilEyes } from "react-icons/gi";
 
 function Mainpage() {
   const [inputHeight, setInputHeight] = useState("50px");
+  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -68,7 +69,9 @@ function Mainpage() {
     }
   };
   const generateText = async (prompt) => {
+    let BadOpenAi = false;
     console.log("we are in the generateText function!");
+    setIsLoading(true); // Set isLoading to true
     const response = await fetch(
       "https://precognition-back-end.herokuapp.com/api/predict",
       {
@@ -79,23 +82,36 @@ function Mainpage() {
         body: JSON.stringify({ prompt }),
       }
     );
-    console.log("This is the response in the front-end!");
+    console.log(
+      "This is the response that we got from the back-end in the fron-end:  " +
+        response
+    );
     const data = await response.json();
+    if (data && data.message) {
+      console.log(data.message);
+    } else {
+      BadOpenAi = true;
+      console.error("Unexpected response:", data);
+    }
     console.log(data.message);
 
-    // Call storeData() function here
     storeData(prompt, data.message);
 
-    // Update the UI with the generated text
     const generatedTextElement = document.createElement("p");
     const contentElement = document.querySelector(".content");
     contentElement.appendChild(generatedTextElement);
 
+    if (BadOpenAi) {
+      data.message =
+        " Waiting for OpenAI to accept my request for extra Quotas, should be good to go soon!";
+    }
     // Slowly add each character to the element
     for (let i = 0; i < data.message.length; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 50)); // Delay each iteration by 50ms
+      await new Promise((resolve) => setTimeout(resolve, 50));
       generatedTextElement.textContent += data.message[i];
     }
+
+    setIsLoading(false); // Set isLoading to false
   };
 
   const text = "I'ma Predict You!";
@@ -114,7 +130,7 @@ function Mainpage() {
         <br />
         <textarea
           className="input-box"
-          placeholder="Type somthinglike: What would happen if ......"
+          placeholder="Type somthing like: What would happen if ......"
           onKeyDown={handleKeyDown}
           onInput={handleInput}
           onKeyUp={handleKeyUp}
@@ -123,7 +139,10 @@ function Mainpage() {
         <br />
         <div className="icon-wrapper">
           <div className="icon-container">
-            <GiEvilEyes size={72} />
+            <GiEvilEyes
+              size={72}
+              style={{ color: isLoading ? "red" : "aqua" }}
+            />{" "}
           </div>
         </div>
       </div>
